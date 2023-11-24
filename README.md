@@ -1,4 +1,6 @@
 # Kurts-Cuber-
+![image](https://github.com/RoTSoL03/Kurts-Cuber-/assets/114688193/c91f822e-e46d-402b-be64-2e2fb252ca24)
+
 Hello this is Stephen Kurt! and I am trying to learn game development using javascript. I am confident enough to create a simple 2d game, so I have decided to challenege myself
 to create a 3d game using javascript.
 
