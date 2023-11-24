@@ -141,7 +141,7 @@
       }
     }, false);
 
-    let backgroundMusic = new Audio('Music/bgMusic.mp3');
+    let backgroundMusic = new Audio('press_start.mp3');
 
     // Start button
     document.getElementById('startButton').addEventListener('click', function () {
