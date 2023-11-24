@@ -10,11 +10,17 @@
     document.body.appendChild(renderer.domElement);
 
     // Create the cube
-    let geometry = new THREE.BoxGeometry(1, 1, 1);
-    let material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-    let cube = new THREE.Mesh(geometry, material);
-    cube.position.y = 0.5;  // Position the cube above the platform
+    let cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+    let cubeMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00});
+    let cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.position.y = 0.5;  // Position the cube on the platform
     scene.add(cube);
+
+    // Add a black outline to the cube
+    let outlineGeometry = new THREE.BoxGeometry(1.1, 1.1, 1.1);
+    let outlineMaterial = new THREE.MeshBasicMaterial({color: 0x000000, side: THREE.BackSide});
+    let outline = new THREE.Mesh(outlineGeometry, outlineMaterial);
+    cube.add(outline);
 
     // Create the platforms
     let platformGeometry = new THREE.BoxGeometry(5, 0.1, 5);
@@ -69,12 +75,23 @@
     let animate = function () {
       if (isGameOver) return;
       requestAnimationFrame(animate);
+      // Check for collisions
+      let cubeBox = new THREE.Box3().setFromObject(cube);
+      for (let i = 0; i < obstacles.length; i++) {
+        let obstacleBox = new THREE.Box3().setFromObject(obstacles[i]);
+        if (cubeBox.intersectsBox(obstacleBox)) {
+          isGameOver = true;
+          backgroundMusic.pause();
+          backgroundMusic.currentTime = 0;
+          document.getElementById('gameOverScreen').style.display = 'flex';
+        }
+      }
       if (isJumping) {
         if (cube.position.y >= 2) {  // Increase the jump height
           isJumping = false;
         } else {
           cube.position.y += jumpSpeed;
-          cube.rotation.x += 0.1;  // Make the cube spin when it jumps
+          cube.rotation.x -= 0.1;  // Make the cube spin when it jumps
         }
       } else if (cube.position.y > 0.5) {
         cube.position.y -= fallSpeed;
@@ -97,26 +114,6 @@
       camera.position.x = cube.position.x;
       renderer.render(scene, camera);
 
-
-      // Check for collisions
-      if (obstacles[i]) {
-        let distance = cube.position.distanceTo(obstacles[i].position);
-        if (distance < cube.geometry.parameters.width / 2 + obstacles[i].geometry.parameters.width / 2) {
-          isGameOver = true;
-          backgroundMusic.pause();
-          backgroundMusic.currentTime = 0;
-          document.getElementById('gameOverScreen').style.display = 'flex';
-        }
-      }
-
-      scene.background = colors[colorIndex];
-      colorIndex = (colorIndex + 1) % colors.length;
-
-
-      obstacleSpeed += 0.0001;  // Increase the obstacle speed as the game progresses
-      camera.position.x = cube.position.x;
-      renderer.render(scene, camera);
-
     };
 
     // Keyboard controls
@@ -125,12 +122,12 @@
       switch (event.keyCode) {
         case 37: // Left arrow key
           if (cube.position.x > -2.5 + cube.geometry.parameters.width / 2) {  // Check if the cube is within the borders
-            cube.position.x -= 0.1;
+            cube.position.x -= 0.2;  // Increase the amount of movement
           }
           break;
         case 39: // Right arrow key
           if (cube.position.x < 2.5 - cube.geometry.parameters.width / 2) {  // Check if the cube is within the borders
-            cube.position.x += 0.1;
+            cube.position.x += 0.2;  // Increase the amount of movement
           }
           break;
         case 32: // Space key
@@ -141,7 +138,9 @@
       }
     }, false);
 
-    let backgroundMusic = new Audio('press_start.mp3');
+
+
+    let backgroundMusic = new Audio('Music/bgMusic.mp3');
 
     // Start button
     document.getElementById('startButton').addEventListener('click', function () {
