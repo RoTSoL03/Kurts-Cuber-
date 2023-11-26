@@ -2,6 +2,9 @@
       margin: 0;
       font-family: 'Press Start 2P', cursive;
       background-color: rgba(0, 0, 0, 0.5);
+      background-image: url('bg.jpeg');
+      background-size: cover;
+      background-position: center;
     }
 
     canvas {
@@ -36,11 +39,54 @@
       border: 2px solid yellow;
     }
 
+    #tutorialButton {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      color: white;
+      background-color: green;
+      border: 2px solid yellow;
+    }
+
     #score {
       position: absolute;
       top: 10px;
       left: 50%;
       transform: translateX(-50%);
       color: white;
-      font-size: 4em; // Make the score counter bigger
+      font-size: 4em;
+      text-shadow: 2px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
+  1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
     }
+
+    #highScore {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 20px;
+      text-shadow: 2px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
+  1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
+    }
+
+
+    #tutorialContent {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      color: white;
+      font-size: 20px;
+    }
+    
+    #closeTutorialButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      color: white;
+      background-color: blue;
+      border: 2px solid yellow;
+    }
+    
