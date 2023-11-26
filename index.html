@@ -14,12 +14,19 @@
   <div id="startScreen">
     <div>Kurt's Cuber!</div>
     <button id="startButton">Start</button>
+    <button id="tutorialButton">How to Play</button>
+    <div id="tutorialContent" style="display: none;">
+      <p><font color="#ff56d9">Welcome to Kurt's Cuber!</font> <br><br> Use the <font color="#fdd955">left</font> and <font color="#fdd955">right arrow keys</font> to move the cube. <br><br>Press the <font color="#fdd955">space bar</font> to jump over obstacles. <br><br>Try to avoid the obstacles and see how high you can score!</p>
+      <button id="closeTutorialButton">Close</button>
+    </div>
   </div>
+  
   <div id="gameOverScreen" style="display: none;">
     <div>Game Over!!</div>
     <button id="restartButton">Try Again?</button>
   </div>
   <div id="score">Score: 0</div>
+  <div id="highScore">High Score: 0</div>
   <script src="https://threejs.org/build/three.js"></script>
   <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
   <script src="https://threejs.org/examples/js/objects/Reflector.js"></script>
